@@ -13,7 +13,7 @@ This is an exercise in using function pointers with structs to allow functions t
 	</ul>
 </div>
 
-##Example
+## Example
 
 <div>
 	<img src="/example.png">
