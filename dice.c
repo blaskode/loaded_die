@@ -3,8 +3,7 @@
 #include <time.h>
 
 struct die{
-	int last_roll;
-	int (* throw)();
+	int (* throw)();	//this is a function pointer!
 };
 
 int roll(){
@@ -28,10 +27,13 @@ int main(void){
 	/*Create a non-loaded die*/
 	struct die myDie;
 	myDie.throw = &roll;
-	int my_num = myDie.throw();
 
+	/*Creates a loaded die*/
 	struct die myLoadedDie;
 	myLoadedDie.throw = &loaded_roll;
+
+	/*Roll each die*/
+	int my_num = myDie.throw();
 	int my_loaded_num = myLoadedDie.throw();
 
 	printf("%d\n", my_num);
