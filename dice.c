@@ -1,19 +1,20 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include <string.h>
 
 struct die{
-	int (* throw)();	//this is a function pointer!
+	int (* throw)(int);	//this is a function pointer!
 };
 
-int roll(){
-	int num = rand() % 6 + 1;
+int roll(int faces){
+	int num = rand() % faces + 1;
 	return num;
 }
 
-int loaded_roll(){
-	int num1 = rand() % 6 + 1;
-	int num2 = rand() % 6 + 1;
+int loaded_roll(int faces){
+	int num1 = rand() % faces + 1;
+	int num2 = rand() % faces + 1;
 	if (num1 > num2) {
 		return num1;
 	} else {
@@ -21,21 +22,50 @@ int loaded_roll(){
 	}
 }
 
-int main(void){
-	srand(time(0));
+int main(int argc, char** argv){
+	if (argc < 2) {
+		fprintf(stderr, "Invalid arguments.\n");
+		exit(EXIT_FAILURE);
+	}
 
-	/*Create a non-loaded die*/
+	int num_faces = 6;
+
+	if (argc == 3) {
+		num_faces = atoi(argv[2]);
+		if (num_faces == 0) {
+			fprintf(stderr, "Invalid number of faces.\n");
+			exit(EXIT_FAILURE);
+		}
+	}
+
 	struct die myDie;
-	myDie.throw = &roll;
 
-	/*Creates a loaded die*/
-	struct die myLoadedDie;
-	myLoadedDie.throw = &loaded_roll;
+	if (argc == 4) {
+		char * flag = strchr(argv[3], '-');
+		char * letter = strchr(argv[3], 'l');
+		if (flag == NULL && letter == NULL) {
+			fprintf(stderr, "flag not recognized.\n");
+			exit(EXIT_FAILURE);
+		} else {
+			myDie.throw = &loaded_roll;
+		}
+	} else {
+		myDie.throw = &roll;
+	}
+	
+	int num_throws = atoi(argv[1]);
 
-	/*Roll each die*/
-	int my_num = myDie.throw();
-	int my_loaded_num = myLoadedDie.throw();
+	if (num_throws == 0) {
+		fprintf(stderr, "Invalid number of throws.\n");
+		exit(EXIT_FAILURE);
+	}
 
-	printf("%d\n", my_num);
-	printf("%d\n", my_loaded_num);
+	srand(time(0));
+	for(int i = 0; i < num_throws; i++){
+		int my_num = myDie.throw(num_faces);
+		printf("%d ", my_num);
+	}
+	printf("\n");
 }
+
+
