@@ -29,7 +29,8 @@ int main(int argc, char** argv){
 	}
 
 	int num_faces = atoi(argv[2]);
-	if (num_faces == 0) {
+
+	if (num_faces <= 0) {
 		fprintf(stderr, "Invalid number of faces.\n");
 		exit(EXIT_FAILURE);
 	}
@@ -51,7 +52,7 @@ int main(int argc, char** argv){
 	
 	int num_throws = atoi(argv[1]);
 
-	if (num_throws == 0) {
+	if (num_throws <= 0) {
 		fprintf(stderr, "Invalid number of throws.\n");
 		exit(EXIT_FAILURE);
 	}
