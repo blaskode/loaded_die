@@ -30,7 +30,7 @@ int main(int argc, char** argv){
 
 	int num_faces = 6;
 
-	if (argc == 3) {
+	if (argc == 3 || argc == 4) {
 		num_faces = atoi(argv[2]);
 		if (num_faces == 0) {
 			fprintf(stderr, "Invalid number of faces.\n");
