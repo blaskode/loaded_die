@@ -43,10 +43,10 @@ int main(int argc, char** argv){
 			fprintf(stderr, "flag not recognized.\n");
 			exit(EXIT_FAILURE);
 		} else {
-			myDie.throw = &loaded_roll;
+			myDie.throw = &loaded_roll;	//assign to function pointer
 		}
 	} else {
-		myDie.throw = &roll;
+		myDie.throw = &roll;	//assign to function pointer
 	}
 	
 	int num_throws = atoi(argv[1]);
