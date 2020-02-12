@@ -23,19 +23,15 @@ int loaded_roll(int faces){
 }
 
 int main(int argc, char** argv){
-	if (argc < 2) {
+	if (argc < 3 || argc > 4) {
 		fprintf(stderr, "Invalid arguments.\n");
 		exit(EXIT_FAILURE);
 	}
 
-	int num_faces = 6;
-
-	if (argc == 3 || argc == 4) {
-		num_faces = atoi(argv[2]);
-		if (num_faces == 0) {
-			fprintf(stderr, "Invalid number of faces.\n");
-			exit(EXIT_FAILURE);
-		}
+	int num_faces = atoi(argv[2]);
+	if (num_faces == 0) {
+		fprintf(stderr, "Invalid number of faces.\n");
+		exit(EXIT_FAILURE);
 	}
 
 	struct die myDie;
